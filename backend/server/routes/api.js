@@ -12,6 +12,7 @@ const getNasaNew = async () => {
     title: nasaNew.data.title,
     description: nasaNew.data.explanation,
     url: nasaNew.data.url,
+    mediaType: nasaNew.data.media_type,
   };
 };
 

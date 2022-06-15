@@ -4,12 +4,10 @@ import { Card } from 'react-bootstrap';
 
 function Home() {
   const [nasaNew, setNasaNew] = useState({});
-  //   const urlType = nasaNew.url.slice(-3);
-  //   console.log(urlType);
 
   const getNasaNew = async () => {
-    let nasaNew = await axios.get('http://localhost:5000/');
-    setNasaNew(nasaNew.data);
+    let nasaNewHomePage = await axios.get('http://localhost:5000/');
+    setNasaNew(nasaNewHomePage.data);
   };
 
   useEffect(() => {
@@ -21,17 +19,25 @@ function Home() {
   return (
     <>
       <h1>NASA News</h1>
+      <hr />
       <Card style={{ width: '100%' }}>
-        <Card.Img
-          variant='top'
-          src={nasaNew.url}
-          alt='cardImage'
-          style={{
-            width: '30rem',
-            display: 'block',
-            margin: 'auto',
-          }}
-        />
+        {nasaNew.mediaType === 'image' ? (
+          <Card.Img
+            variant='top'
+            src={nasaNew.url}
+            alt='cardImage'
+            style={{
+              width: '30rem',
+              display: 'block',
+              margin: 'auto',
+            }}
+          />
+        ) : (
+          <video src={nasaNew.url} controls>
+            Your browser does not support the video tag.
+          </video>
+        )}
+
         <Card.Body>
           <Card.Title>{nasaNew.title}</Card.Title>
           <Card.Text>{nasaNew.description}</Card.Text>
