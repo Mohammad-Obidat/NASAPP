@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const api = require('./server/routes/api.js');
 
-// mongoose.connect('mongodb://localhost/nasa', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost/nasa', { useNewUrlParser: true });
 const app = express();
 
 app.use(express.json());

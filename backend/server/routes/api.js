@@ -1,10 +1,10 @@
 const express = require('express');
 const axios = require('../../../node_modules/axios');
-const nasaNew = require('../models/nasaNew.js');
-const saveNasaNew = require('../config/db.js');
+const nasaModel = require('../models/nasaNew.js');
+const saveNasaNews = require('../config/db.js');
 const router = express.Router();
 
-const getNasaNew = async () => {
+const getNasaNewPerDay = async () => {
   const URL = `https://api.nasa.gov/planetary/apod?api_key=${process.env.NASA_API_KEY}`;
   const nasaNew = await axios.get(URL);
   return {
@@ -33,18 +33,45 @@ const getNasaNewsBySearch = async (nasaNew) => {
 
 router.get('/', async (req, res) => {
   try {
-    const nasaNew = await getNasaNew();
+    const nasaNew = await getNasaNewPerDay();
     res.status(200).send(nasaNew);
   } catch (error) {
     res.sendStatus(400);
   }
 });
 
-router.get('/search/:nasaNew', async (req, res) => {
-  let nasaNewParam = req.params.nasaNew;
+router.get('/search/:nasaPost', async (req, res) => {
+  let nasaNewParam = req.params.nasaPost;
   try {
-    const nasaNew = await getNasaNewsBySearch(nasaNewParam);
-    res.status(200).send(nasaNew);
+    if (nasaNewParam) {
+      const nasaNews = await getNasaNewsBySearch(nasaNewParam);
+      res.send(nasaNews);
+    } else {
+      res.sendStatus(400);
+    }
+  } catch (error) {
+    res.sendStatus(404);
+  }
+});
+
+router.post('/favorite', async (req, res) => {
+  let nasaNews = req.body;
+  try {
+    if (nasaNews) {
+      await saveNasaNews(nasaNews);
+      res.status(201).send(nasaNews);
+    } else {
+      res.sendStatus(400);
+    }
+  } catch (error) {
+    res.sendStatus(404);
+  }
+});
+
+router.get('/favorite', async (req, res) => {
+  let nasaFavorite = await nasaModel.find({});
+  try {
+    res.send(nasaFavorite);
   } catch (error) {
     res.sendStatus(400);
   }

@@ -19,6 +19,11 @@ function Search() {
     );
 
     setSearchNasaNews(searchResult.data);
+    setSearchText('');
+  };
+
+  const addToFavorite = async (nasaPost) => {
+    await axios.post(`http://localhost:5000/favorite`, nasaPost);
   };
 
   return (
@@ -38,6 +43,7 @@ function Search() {
           aria-label='Example text with button addon'
           aria-describedby='basic-addon1'
           onChange={handleInput}
+          value={searchText}
         />
       </InputGroup>
       <hr />
@@ -68,7 +74,11 @@ function Search() {
                       dangerouslySetInnerHTML={{ __html: n.description }}
                     ></Card.Text>
                   </ExpendableText>
-                  <Button className='cardBtn' variant='dark'>
+                  <Button
+                    onClick={() => addToFavorite(n)}
+                    className='cardBtn'
+                    variant='dark'
+                  >
                     Add to Favorite
                   </Button>
                 </Card.Body>
