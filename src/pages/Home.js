@@ -12,7 +12,11 @@ function Home() {
 
   useEffect(() => {
     (async () => {
-      await getNasaNew();
+      try {
+        await getNasaNew();
+      } catch (error) {
+        throw error;
+      }
     })();
   }, []);
 
@@ -27,13 +31,14 @@ function Home() {
             src={nasaNew.url}
             alt='cardImage'
             style={{
-              width: '30rem',
+              width: '100%',
+              height: '25rem',
               display: 'block',
               margin: 'auto',
             }}
           />
         ) : (
-          <video src={nasaNew.url} controls>
+          <video src={nasaNew.url} style={{ height: '25rem' }} controls>
             Your browser does not support the video tag.
           </video>
         )}

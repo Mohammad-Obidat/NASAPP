@@ -1,3 +1,8 @@
-.navbar-link {
-  text-decoration: none;
+.inner {
+  overflow: hidden;
+  transition: max-height 0.2s ease;
+}
+
+.cardBtn {
+  margin-top: 1em;
 }
