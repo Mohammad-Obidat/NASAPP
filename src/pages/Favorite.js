@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react';
-import PostCard from '../components/postCard.js';
+import FavoritePost from '../components/favoritePosts.js';
 
 function Favorite() {
   const [favoriteNasaNews, setFavoriteNasaNews] = useState([]);
@@ -24,13 +24,7 @@ function Favorite() {
     <>
       {favoriteNasaNews.length !== 0 && (
         <>
-          {favoriteNasaNews.map((p, i) => {
-            return (
-              <React.Fragment key={i}>
-                <PostCard post={p} />
-              </React.Fragment>
-            );
-          })}
+          <FavoritePost posts={favoriteNasaNews} />
         </>
       )}
     </>

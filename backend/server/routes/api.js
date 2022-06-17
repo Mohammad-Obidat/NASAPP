@@ -73,7 +73,7 @@ router.get('/favorite', async (req, res) => {
   try {
     res.send(nasaFavorite);
   } catch (error) {
-    res.sendStatus(400);
+    res.sendStatus(404);
   }
 });
 
