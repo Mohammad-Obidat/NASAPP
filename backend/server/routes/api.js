@@ -77,4 +77,14 @@ router.get('/favorite', async (req, res) => {
   }
 });
 
+router.get('/favorite/:postId', async (req, res) => {
+  let postId = req.params.postId;
+  try {
+    let post = await nasaModel.find({ $oid: postId });
+    res.status(200).send(post);
+  } catch (error) {
+    res.sendStatus(404);
+  }
+});
+
 module.exports = router;
