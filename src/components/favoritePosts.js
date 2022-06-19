@@ -1,7 +1,6 @@
 import React from 'react';
 import { Carousel, Nav } from 'react-bootstrap';
-import { Link, Route } from 'react-router-dom';
-import NasaPostDetails from '../pages/NasaPostDetails';
+import { Link } from 'react-router-dom';
 
 function favoritePosts(props) {
   let posts = props.posts;
@@ -9,11 +8,6 @@ function favoritePosts(props) {
     <>
       <h5>Favorites Carousel</h5>
       <hr />
-      <Route
-        exact
-        path='/favorite/:postId'
-        render={({ match }) => <NasaPostDetails match={match} posts={posts} />}
-      />
       <Carousel fade interval={1000}>
         {posts.length !== 0 &&
           posts.map((p, i) => {

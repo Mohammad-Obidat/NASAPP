@@ -1,5 +1,6 @@
 const express = require('express');
 const axios = require('../../../node_modules/axios');
+var ObjectId = require('mongodb').ObjectId;
 const nasaModel = require('../models/nasaNew.js');
 const saveNasaNews = require('../config/db.js');
 const router = express.Router();
@@ -79,8 +80,9 @@ router.get('/favorite', async (req, res) => {
 
 router.get('/favorite/:postId', async (req, res) => {
   let postId = req.params.postId;
+  let o_id = new ObjectId(postId);
   try {
-    let post = await nasaModel.find({ $oid: postId });
+    let post = await nasaModel.find({ _id: o_id });
     res.status(200).send(post);
   } catch (error) {
     res.sendStatus(404);
